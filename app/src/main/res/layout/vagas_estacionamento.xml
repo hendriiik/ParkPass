@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ocupação das vagas"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <ImageButton
+        android:id="@+id/btnCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_estacionamento"
+        app:layout_constraintTop_toTopOf="@id/txtTitulo"
+        app:layout_constraintBottom_toBottomOf="@id/txtTitulo"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:background="@null"/>
+
+    <ListView
+        android:id="@+id/listVagas"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCliente"
+        app:layout_constraintBottom_toTopOf="@id/btnVagasVazias"
+        android:layout_marginVertical="12dp"/>
+
+    <Button
+        android:id="@+id/btnHistorico"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Histórico de ocupacão"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:backgroundTint="@color/cinza2"
+        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="20dp"/>
+
+    <Button
+        android:id="@+id/btnVagasVazias"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnVagasOcupadas"
+        app:layout_constraintBottom_toTopOf="@id/btnHistorico"
+        android:text="Vazio"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:backgroundTint="@color/cinza2"
+        android:layout_marginBottom="12dp"
+        android:drawableLeft="@drawable/ic_carro"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="6dp"/>
+
+    <Button
+        android:id="@+id/btnVagasOcupadas"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toEndOf="@id/btnVagasVazias"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnHistorico"
+        android:text="Ocupado"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:backgroundTint="@color/cinza2"
+        android:layout_marginBottom="12dp"
+        android:drawableLeft="@drawable/ic_carro_riscado"
+        android:layout_marginEnd="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginStart="6dp"/>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
