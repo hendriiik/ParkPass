@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="Ocupação das vagas"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="sans-serif"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

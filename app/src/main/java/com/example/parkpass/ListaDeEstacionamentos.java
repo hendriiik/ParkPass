@@ -1,7 +1,5 @@
 package com.example.parkpass;
 
-import android.util.Pair;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,10 +33,6 @@ public class ListaDeEstacionamentos {
         adicionarEstacionamento(new Estacionamento(808, "Estacionamento Seguro", "789012345", "contato@estacionamentoseguro.com", "678901234", new ListaDeVagas(), 4.1f, 14.00f, "11:00 - 20:00"));
     }
 
-    public Estacionamento selecionaEstacionamento(int idEstacionamento) {
-        return listaEstacionamento.get(idEstacionamento);
-    }
-
     public void adicionarEstacionamento(Estacionamento estacionamento) {
         listaEstacionamento.put(estacionamento.getId(), estacionamento);
     }
@@ -62,5 +56,18 @@ public class ListaDeEstacionamentos {
             }
         }
         return null;
+    }
+
+    public Estacionamento selecionaEstacionamentoPorEmail(String email) {
+        for (Estacionamento estacionamento : listaEstacionamento.values()) {
+            if (estacionamento.getEmail().equals(email)) {
+                return estacionamento;
+            }
+        }
+        return null;
+    }
+
+    public Estacionamento selecionaEstacionamentoPorId(int idEstacionamento) {
+        return listaEstacionamento.get(idEstacionamento);
     }
 }

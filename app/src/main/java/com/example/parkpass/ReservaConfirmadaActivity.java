@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ReservaConfirmada extends AppCompatActivity {
+public class ReservaConfirmadaActivity extends AppCompatActivity {
 
     TextView txtTempoChegarLocal;
     Button btnChegueiAoEstacionamento, btnAbrirMapa;
@@ -42,7 +42,7 @@ public class ReservaConfirmada extends AppCompatActivity {
         btnChegueiAoEstacionamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReservaConfirmada.this, MainActivity.class);
+                Intent intent = new Intent(ReservaConfirmadaActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -62,7 +62,7 @@ public class ReservaConfirmada extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(ReservaConfirmada.this, MainActivity.class);
+                Intent intent = new Intent(ReservaConfirmadaActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -71,7 +71,7 @@ public class ReservaConfirmada extends AppCompatActivity {
         btnAbrirMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirGoogleMaps(ReservaConfirmada.this);
+                abrirGoogleMaps(ReservaConfirmadaActivity.this);
             }
         });
 

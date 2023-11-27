@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReservaConfirmada"/>
+        <activity android:name=".ReservaConfirmadaActivity"/>
         <activity android:name=".DetalhesEstacionamentoActivity"/>
-        <activity android:name=".VagasEstacionamento"/>
+        <activity android:name=".VagasEstacionamentoActivity"/>
     </application>
 
 </manifest>

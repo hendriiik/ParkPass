@@ -78,7 +78,7 @@ public class DetalhesEstacionamentoActivity extends AppCompatActivity {
                 // Obtém o estacionamento da lista usando o ID
                 ListaDeEstacionamentos listaDeEstacionamentos = new ListaDeEstacionamentos();
                 listaDeEstacionamentos.carregarEstacionamentos();
-                estacionamento = listaDeEstacionamentos.selecionaEstacionamento(estacionamentoId);
+                estacionamento = listaDeEstacionamentos.selecionaEstacionamentoPorId(estacionamentoId);
 
                 // Preenche os componentes da interface com os dados do estacionamento
                 if (estacionamento != null) {
@@ -139,7 +139,7 @@ public class DetalhesEstacionamentoActivity extends AppCompatActivity {
         btnSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetalhesEstacionamentoActivity.this, ReservaConfirmada.class);
+                Intent intent = new Intent(DetalhesEstacionamentoActivity.this, ReservaConfirmadaActivity.class);
                 startActivity(intent);
                 finish();
             }
