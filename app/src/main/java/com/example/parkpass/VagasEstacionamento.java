@@ -49,7 +49,7 @@ public class VagasEstacionamento extends AppCompatActivity {
             }
         });
 
-        String[] exemplosDados = {"01 (moto) - vazia", "02 (moto) - ocupada por Biz GHZ-4932", "03 (carro) - vazia", "04 (carro) - vazia"};
+        String[] exemplosDados = {"01 (moto) - vazia", "02 (moto) - ocupada por  GHZ-4932", "03 (carro) - vazia", "04 (carro) - vazia"};
 
         // Cria um adaptador para a lista
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, exemplosDados);

@@ -103,14 +103,12 @@
         android:id="@+id/txtDistanciaValor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="XX km"
+        android:text="1,2 km"
         app:layout_constraintTop_toTopOf="@id/txtDistancia"
         app:layout_constraintStart_toEndOf="@id/txtDistancia"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:fontFamily="sans-serif"/>
-
-
 
 
     <TextView

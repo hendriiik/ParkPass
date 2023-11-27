@@ -13,12 +13,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class DetalhesEstacionamentoActivity extends AppCompatActivity {
 
     ImageView imgFtEstacionamento, imgEletrico, imgMoto, imgCoberto, imgAcessivel, imgBemAvaliado;
-    TextView txtNota, txtNomeEstacionamento, txtDistanciaValor, txtFuncionamentoValor, txtPreco;
+    TextView txtNota, txtNomeEstacionamento, txtFuncionamentoValor, txtPreco;
     Button btnCancelar, btnReservar;
     ImageButton btnVoltar;
+    Estacionamento estacionamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,6 @@ public class DetalhesEstacionamentoActivity extends AppCompatActivity {
 
         txtNota = findViewById(R.id.txtNota);
         txtNomeEstacionamento = findViewById(R.id.txtNomeEstacionamento);
-        txtDistanciaValor = findViewById(R.id.txtDistanciaValor);
         txtFuncionamentoValor = findViewById(R.id.txtFuncionamentoValor);
         txtPreco = findViewById(R.id.txtPreco);
 
@@ -53,7 +58,6 @@ public class DetalhesEstacionamentoActivity extends AppCompatActivity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo colocar uma intent
                 voltar();
             }
         });
@@ -65,15 +69,38 @@ public class DetalhesEstacionamentoActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            int estacionamentoId = intent.getIntExtra("estacionamentoId", -1);
+
+            // Verifica se o ID do estacionamento foi passado corretamente
+            if (estacionamentoId != -1) {
+                // Obtém o estacionamento da lista usando o ID
+                ListaDeEstacionamentos listaDeEstacionamentos = new ListaDeEstacionamentos();
+                listaDeEstacionamentos.carregarEstacionamentos();
+                estacionamento = listaDeEstacionamentos.selecionaEstacionamento(estacionamentoId);
+
+                // Preenche os componentes da interface com os dados do estacionamento
+                if (estacionamento != null) {
+                    preencherDetalhesEstacionamento(estacionamento);
+                }
+            }
+        }
 
         //todo esconder/exibir icones
         //todo exibir imagem do estacionamento
-        //todo exibir os textos corretamente
 
     }
 
     private void voltar() {
         onBackPressed();
+    }
+
+    private void preencherDetalhesEstacionamento(Estacionamento estacionamento) {
+        txtNomeEstacionamento.setText(estacionamento.getNome());
+        txtNota.setText(Float.toString(estacionamento.getNota()));
+        txtFuncionamentoValor.setText(estacionamento.getFuncionamento());
+        txtPreco.setText("Preço: "+formatarValorEmReais((double) estacionamento.getPreco()));
     }
 
 
@@ -94,6 +121,21 @@ public class DetalhesEstacionamentoActivity extends AppCompatActivity {
 
         //todo popular esses txts
 
+        txtNomeEstacionamento.setText(estacionamento.getNome());
+        txtValor.setText(formatarValorEmReais((double) estacionamento.getPreco()));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, 15);
+        String horarioInicio = formatarHorario(calendar);
+
+        // Adiciona mais 1 hora
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+        String horarioFim = formatarHorario(calendar);
+
+        // Exibe o intervalo de horários no TextView
+        String intervaloHorario = horarioInicio + " - " + horarioFim;
+        txtHorario.setText(intervaloHorario);
+
         btnSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +153,17 @@ public class DetalhesEstacionamentoActivity extends AppCompatActivity {
         });
 
         alertDialog.show();
+    }
+
+    private String formatarHorario(Calendar calendar) {
+        // Formata o horário como XX:XX
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        return sdf.format(calendar.getTime());
+    }
+
+    private String formatarValorEmReais(double valor) {
+        NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        return formatoMoeda.format(valor);
     }
 }
 

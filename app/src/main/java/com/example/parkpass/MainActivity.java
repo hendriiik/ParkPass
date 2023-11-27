@@ -9,10 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     ConstraintLayout lay1Km, layEletrico, layMotos, layAcessivel, layBemAvaliado;
     ImageView imgFtEstacionamento1, imgFtEstacionamento2, imgFtEstacionamento3, imgFtEstacionamento4, imgFtEstacionamento5;
     AutoCompleteTextView etSearch;
+    ListaDeEstacionamentos listaDeEstacionamentos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +41,20 @@ public class MainActivity extends AppCompatActivity {
         imgFtEstacionamento5 = findViewById(R.id.imgFtEstacionamento5);
         etSearch = findViewById(R.id.etSearch);
 
+        listaDeEstacionamentos = new ListaDeEstacionamentos();
+        listaDeEstacionamentos.carregarEstacionamentos();
 
         btnProcurarEstacionamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent = new Intent(MainActivity.this, DetalhesEstacionamentoActivity.class);
-                startActivity(intent);
+                String string = etSearch.getEditableText().toString();
+                Estacionamento estacionamento = listaDeEstacionamentos.selecionaEstacionamentoPorNome(string);
+
+                if (estacionamento != null) {
+                    Intent intent = new Intent(MainActivity.this, DetalhesEstacionamentoActivity.class);
+                    intent.putExtra("estacionamentoId", estacionamento.getId()); // Passa o ID do estacionamento
+                    startActivity(intent);
+                }
             }
         });
 
@@ -121,28 +128,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String[] exemploTextos = {"estacionamento 1", "estacionamento 2", "estacionamento 3"};
+        popularAutoCompleteTextView();
 
+    }
 
-// Cria um adaptador para o AutoCompleteTextView
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, exemploTextos);
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-// Define o adaptador para o AutoCompleteTextView
+        if (listaDeEstacionamentos == null) {
+            listaDeEstacionamentos = new ListaDeEstacionamentos();
+        }
+
+        listaDeEstacionamentos.carregarEstacionamentos();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, listaDeEstacionamentos.getNomesEstacionamentos());
         etSearch.setAdapter(adapter);
 
+
+    }
+
+    private void popularAutoCompleteTextView() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, listaDeEstacionamentos.getNomesEstacionamentos());
+        etSearch.setAdapter(adapter);
         etSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Obtém o item selecionado
                 String selectedItem = (String) parent.getItemAtPosition(position);
 
-                // Abre a nova tela (substitua DetalhesEstacionamentoActivity.class pela sua Activity desejada)
+                Estacionamento estacionamento = listaDeEstacionamentos.selecionaEstacionamentoPorNome(selectedItem);
+
                 Intent intent = new Intent(MainActivity.this, DetalhesEstacionamentoActivity.class);
-                // Você também pode passar dados para a próxima Activity se necessário
-                intent.putExtra("selectedItem", selectedItem);
+                intent.putExtra("estacionamentoId", estacionamento.getId()); // Passa o ID do estacionamento
                 startActivity(intent);
             }
         });
-
     }
 }
